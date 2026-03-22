@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kartavya - Web Developer</title>
+    <meta name="description" content="Web Developer with 1 year of experience and 23+ completed projects. Specializing in modern, conversion-focused websites.">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --bg-primary: #0a0a1f;
+            --bg-secondary: #1a1a2e;
+            --bg-card: rgba(31, 31, 46, 0.8);
+            --text-primary: #ffffff;
+            --text-secondary: #e5e7eb;
+            --accent-purple: #8b5cf6;
+            --accent-cyan: #06b6d4;
+            --accent-pink: #ec4899;
+            --accent-orange: #f97316;
+        }
+
+        .light-theme {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f9fafb;
+            --bg-card: rgba(255, 255, 255, 0.9);
+            --text-primary: #1a1a2e;
+            --text-secondary: #4b5563;
+            --accent-purple: #7c3aed;
+            --accent-cyan: #0891b2;
+            --accent-pink: #db2777;
+            --accent-orange: #ea580c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .gradient-border {
+            position: relative;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+        }
+
+        .gradient-border::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            z-index: -1;
+        }
+
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-purple), var(--accent-cyan), var(--accent-pink));
+            z-index: 9999;
+            transition: width 0.1s ease;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar.hidden {
+            transform: translateY(-100%);
+        }
+
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .animated-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #0a0a1f 0%, #1a1a2e 50%, #0a0a1f 100%);
+        }
+
+        .light-theme .animated-bg {
+            background: linear-gradient(135deg, #f0f4ff 0%, #e0e7ff 50%, #f0f4ff 100%);
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            animation: float 20s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(100px, -100px) rotate(90deg); }
+            50% { transform: translate(200px, 50px) rotate(180deg); }
+            75% { transform: translate(-50px, 100px) rotate(270deg); }
+        }
+
+        .card {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.3);
+            border-color: var(--accent-purple);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+            color: white;
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.5);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid var(--accent-purple);
+            cursor: pointer;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent-purple);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .skill-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(139, 92, 246, 0.1);
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 10px 25px rgba(6, 182, 212, 0.3);
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            position: relative;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.4);
+        }
+
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.95), rgba(6, 182, 212, 0.95));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            flex-direction: column;
+            gap: 16px;
+            padding: 24px;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--accent-purple), var(--accent-cyan));
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 40px;
+            padding-left: 30px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -46px;
+            top: 0;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--accent-purple);
+            border: 3px solid var(--bg-primary);
+            box-shadow: 0 0 20px var(--accent-purple);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .testimonial-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 32px;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            border-color: var(--accent-pink);
+            box-shadow: 0 15px 35px rgba(236, 72, 153, 0.3);
+        }
+
+        .social-link {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--bg-card);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.4);
+            color: white;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 6px 12px;
+            background: rgba(139, 92, 246, 0.2);
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            margin: 4px;
+            color: var(--accent-purple);
+        }
+
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--bg-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            transition: opacity 0.5s ease;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader-circle {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(139, 92, 246, 0.2);
+            border-top-color: var(--accent-purple);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .stat-number { font-size: 36px; }
+            .timeline { padding-left: 30px; }
+            .timeline-item { padding-left: 20px; }
+            .timeline-item::before { left: -36px; }
+        }
+
+        .theme-toggle {
+            width: 60px;
+            height: 30px;
+            background: var(--bg-card);
+            border-radius: 15px;
+            position: relative;
+            cursor: pointer;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle-circle {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+            border-radius: 50%;
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .light-theme .theme-toggle-circle {
+            left: 33px;
+        }
+
+        .kuse-branding {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .kuse-branding:hover {
+            color: var(--accent-purple);
+        }
+
+        .kuse-branding svg {
+            height: 1.2em;
+            transition: all 0.3s ease;
+        }
+
+        .kuse-branding:hover svg {
+            transform: scale(1.1);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 18px;
+            background: var(--bg-card);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+        }
+
+        .form-input::placeholder {
+            color: var(--text-secondary);
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="loader" id="loader">
+        <div class="loader-circle"></div>
+    </div>
+
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <nav class="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0">
+                    <h2 class="text-2xl font-bold gradient-text">Kartavya</h2>
+                </div>
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#about" class="text-sm font-medium hover:text-purple-400 transition-colors">About</a>
+                    <a href="#skills" class="text-sm font-medium hover:text-purple-400 transition-colors">Skills</a>
+                    <a href="#projects" class="text-sm font-medium hover:text-purple-400 transition-colors">Projects</a>
+                    <a href="#services" class="text-sm font-medium hover:text-purple-400 transition-colors">Services</a>
+                    <a href="#contact" class="text-sm font-medium hover:text-purple-400 transition-colors">Contact</a>
+                    <div class="theme-toggle" id="themeToggle">
+                        <div class="theme-toggle-circle"></div>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobileMenuBtn" class="text-2xl">☰</button>
+                </div>
+            </div>
+        </div>
+        <div id="mobileMenu" class="md:hidden hidden bg-opacity-95" style="background: var(--bg-card);">
+            <div class="px-4 pt-2 pb-4 space-y-3">
+                <a href="#about" class="block py-2 text-sm font-medium hover:text-purple-400 transition-colors">About</a>
+                <a href="#skills" class="block py-2 text-sm font-medium hover:text-purple-400 transition-colors">Skills</a>
+                <a href="#projects" class="block py-2 text-sm font-medium hover:text-purple-400 transition-colors">Projects</a>
+                <a href="#services" class="block py-2 text-sm font-medium hover:text-purple-400 transition-colors">Services</a>
+                <a href="#contact" class="block py-2 text-sm font-medium hover:text-purple-400 transition-colors">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-section" id="hero">
+        <div class="animated-bg"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 reveal">
+                Hi, I'm <span class="gradient-text">Kartavya</span>
+            </h1>
+            <h2 class="text-3xl md:text-5xl font-bold mb-6 reveal" style="animation-delay: 0.2s;">
+                I Build Digital Experiences<br>That Matter
+            </h2>
+            <p class="text-lg md:text-xl mb-10 max-w-3xl mx-auto reveal" style="animation-delay: 0.4s; color: var(--text-secondary);">
+                Web Developer specializing in modern, conversion-focused websites
+            </p>
+            <div class="flex flex-wrap gap-4 justify-center reveal" style="animation-delay: 0.6s;">
+                <a href="#projects" class="btn-primary">View My Work</a>
+                <a href="#contact" class="btn-secondary">Hire Me</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <svg width="30" height="50" viewBox="0 0 30 50">
+                <rect x="5" y="5" width="20" height="35" rx="10" fill="none" stroke="currentColor" stroke-width="2"/>
+                <circle cx="15" cy="15" r="3" fill="currentColor">
+                    <animate attributeName="cy" from="15" to="30" dur="1.5s" repeatCount="indefinite"/>
+                </circle>
+            </svg>
+        </div>
+    </section>
+
+    <section id="about" class="py-20 px-4 sm:px-6 lg:px-8" style="background: var(--bg-secondary);">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="reveal">
+                    <div class="w-full max-w-md mx-auto">
+                        <div class="aspect-square rounded-2xl overflow-hidden gradient-border" style="background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan)); padding: 4px;">
+                            <div class="w-full h-full rounded-2xl flex items-center justify-center" style="background: var(--bg-card);">
+                                <svg width="200" height="200" viewBox="0 0 200 200" fill="none">
+                                    <circle cx="100" cy="70" r="35" fill="var(--accent-purple)"/>
+                                    <path d="M50 150 Q100 120 150 150 L150 180 Q100 160 50 180 Z" fill="var(--accent-cyan)"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="reveal">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6 gradient-text">About Me</h2>
+                    <p class="text-lg mb-6" style="color: var(--text-secondary);">
+                        I'm a passionate web developer with 1 year of hands-on experience building modern, functional websites. I specialize in creating clean, user-friendly digital experiences that help businesses grow and connect with their audience.
+                    </p>
+                    <p class="text-lg mb-8" style="color: var(--text-secondary);">
+                        My approach is simple: understand your needs, design with purpose, and build with precision. From responsive landing pages to dynamic web applications, I deliver quality work that makes an impact.
+                    </p>
+                    <div class="grid grid-cols-3 gap-4 mb-8">
+                        <div class="text-center p-4 card">
+                            <div class="stat-number" data-target="1">0</div>
+                            <div class="text-sm" style="color: var(--text-secondary);">Year Experience</div>
+                        </div>
+                        <div class="text-center p-4 card">
+                            <div class="stat-number" data-target="27">0</div>
+                            <div class="text-sm" style="color: var(--text-secondary);">Projects Completed</div>
+                        </div>
+                        <div class="text-center p-4 card">
+                            <div class="stat-number" data-target="100">0</div>
+                            <div class="text-sm" style="color: var(--text-secondary);">Client Satisfaction</div>
+                        </div>
+                    </div>
+                    <a href="#" class="btn-primary">Download Resume</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="py-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 gradient-text">My Expertise</h2>
+                <p class="text-lg" style="color: var(--text-secondary);">Technologies and tools I work with</p>
+            </div>
+
+            <div class="mb-16 reveal">
+                <h3 class="text-2xl font-bold mb-6">Technical Skills</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
+                    <div class="skill-card">
+                        <div class="text-4xl mb-3">🌐</div>
+                        <div class="font-semibold">HTML</div>
+                        <div class="mt-2 h-2 bg-gray-700 rounded-full overflow-hidden">
+                            <div class="h-full gradient-bg" style="width: 95%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <div class="text-4xl mb-3">🎨</div>
+                        <div class="font-semibold">CSS</div>
+                        <div class="mt-2 h-2 bg-gray-700 rounded-full overflow-hidden">
+                            <div class="h-full gradient-bg" style="width: 95%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <div class="text-4xl mb-3">⚡</div>
+                        <div class="font-semibold">JavaScript</div>
+                        <div class="mt-2 h-2 bg-gray-700 rounded-full overflow-hidden">
+                            <div class="h-full gradient-bg" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <div class="text-4xl mb-3">⚛️</div>
+                        <div class="font-semibold">React</div>
+                        <div class="mt-2 h-2 bg-gray-700 rounded-full overflow-hidden">
+                            <div class="h-full gradient-bg" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <div class="text-4xl mb-3">🟢</div>
+                        <div class="font-semibold">Node.js</div>
+                        <div class="mt-2 h-2 bg-gray-700 rounded-full overflow-hidden">
+                            <div class="h-full gradient-bg" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <div class="text-4xl mb-3">🐍</div>
+                        <div class="font-semibold">Python</div>
+                        <div class="mt-2 h-2 bg-gray-700 rounded-full overflow-hidden">
+                            <div class="h-full gradient-bg" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <div class="text-4xl mb-3">🗄️</div>
+                        <div class="font-semibold">SQL</div>
+                        <div class="mt-2 h-2 bg-gray-700 rounded-full overflow-hidden">
+                            <div class="h-full gradient-bg" style="width: 80%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-16 reveal">
+                <h3 class="text-2xl font-bold mb-6">Tools & Software</h3>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                    <div class="skill-card">
+                        <div class="text-4xl mb-3">🎭</div>
+                        <div class="font-semibold">Figma</div>
+                    </div>
+                    <div class="skill-card">
+                        <div class="text-4xl mb-3">💎</div>
+                        <div class="font-semibold">Adobe XD</div>
+                    </div>
+                    <div class="skill-card">
+                        <div class="text-4xl mb-3">💻</div>
+                        <div class="font-semibold">VS Code</div>
+                    </div>
+                    <div class="skill-card">
+                        <div class="text-4xl mb-3">🔀</div>
+                        <div class="font-semibold">Git</div>
+                    </div>
+                    <div class="skill-card">
+                        <div class="text-4xl mb-3">🖼️</div>
+                        <div class="font-semibold">Photoshop</div>
+                    </div>
+                    <div class="skill-card">
+                        <div class="text-4xl mb-3">✨</div>
+                        <div class="font-semibold">Illustrator</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reveal">
+                <h3 class="text-2xl font-bold mb-6">Soft Skills</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="skill-card">
+                        <div class="text-4xl mb-3">🧩</div>
+                        <div class="font-semibold">Problem Solving</div>
+                    </div>
+                    <div class="skill-card">
+                        <div class="text-4xl mb-3">💬</div>
+                        <div class="font-semibold">Communication</div>
+                    </div>
+                    <div class="skill-card">
+                        <div class="text-4xl mb-3">👥</div>
+                        <div class="font-semibold">Team Leadership</div>
+                    </div>
+                    <div class="skill-card">
+                        <div class="text-4xl mb-3">⏰</div>
+                        <div class="font-semibold">Time Management</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="py-20 px-4 sm:px-6 lg:px-8" style="background: var(--bg-secondary);">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 gradient-text">Featured Work</h2>
+                <p class="text-lg" style="color: var(--text-secondary);">Some of my recent projects</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="project-card reveal">
+                    <div class="h-48 gradient-bg flex items-center justify-center">
+                        <svg width="80" height="80" viewBox="0 0 80 80" fill="white">
+                            <path d="M20 20 L60 20 L60 60 L20 60 Z" fill="none" stroke="white" stroke-width="2"/>
+                            <circle cx="30" cy="35" r="8" fill="white"/>
+                            <path d="M45 45 L60 60" stroke="white" stroke-width="3"/>
+                        </svg>
+                    </div>
+                    <div class="p-6">
+                        <div class="mb-3">
+                            <span class="tag">Restaurant</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">House of Benne</h3>
+                        <p class="mb-4" style="color: var(--text-secondary);">Modern website of a local restaurant</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="tag">React</span>
+                            <span class="tag">Node.js</span>
+                            <span class="tag">MongoDB</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <a href="https://webwithk.github.io/houseofbenne/" class="text-sm font-semibold hover:text-purple-400 transition-colors">View Project →</a>
+                             
+                        </div>
+                    </div>
+                    <div class="project-overlay">
+                        <h3 class="text-2xl font-bold text-white mb-4">Restaurant website</h3>
+                        <p class="text-white text-center mb-6">Full-stack website for a restaurant</p>
+                        <div class="flex gap-4">
+                            <a href="https://webwithk.github.io/houseofbenne/" class="btn-primary">Live Demo</a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card reveal">
+                    <div class="h-48 flex items-center justify-center" style="background: linear-gradient(135deg, #ec4899, #f97316);">
+                        <svg width="80" height="80" viewBox="0 0 80 80" fill="white">
+                            <rect x="15" y="15" width="50" height="50" rx="5" fill="none" stroke="white" stroke-width="2"/>
+                            <line x1="25" y1="25" x2="55" y2="25" stroke="white" stroke-width="2"/>
+                            <line x1="25" y1="35" x2="55" y2="35" stroke="white" stroke-width="2"/>
+                            <line x1="25" y1="45" x2="45" y2="45" stroke="white" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <div class="p-6">
+                        <div class="mb-3">
+                            <span class="tag">Restaurant</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Little Italy Udaipur</h3>
+                        <p class="mb-4" style="color: var(--text-secondary);">Modern, high converting website of a restaurant</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="tag">React</span>
+                            <span class="tag">D3.js</span>
+                            <span class="tag">Firebase</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <a href="https://webwithk.github.io/littleitaly/" class="text-sm font-semibold hover:text-purple-400 transition-colors">View Project →</a>
+                           
+                        </div>
+                    </div>
+                    <div class="project-overlay">
+                        <h3 class="text-2xl font-bold text-white mb-4">Web page for a restaurant</h3>
+                        <p class="text-white text-center mb-6">Real time table booking, google map integration</p>
+                        <div class="flex gap-4">
+                            <a href="https://webwithk.github.io/littleitaly/" class="btn-primary">Live Demo</a>
+                          
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card reveal">
+                    <div class="h-48 flex items-center justify-center" style="background: linear-gradient(135deg, #06b6d4, #3b82f6);">
+                        <svg width="80" height="80" viewBox="0 0 80 80" fill="white">
+                            <rect x="25" y="15" width="30" height="50" rx="5" fill="none" stroke="white" stroke-width="2"/>
+                            <circle cx="40" cy="55" r="3" fill="white"/>
+                            <line x1="30" y1="25" x2="50" y2="25" stroke="white" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <div class="p-6">
+                        <div class="mb-3">
+                            <span class="tag">E-Commerce</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Steam Art Supplies</h3>
+                        <p class="mb-4" style="color: var(--text-secondary);">E-Commerce website for a art supplies store</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="tag">Figma</span>
+                            <span class="tag">UI/UX</span>
+                            <span class="tag">Prototyping</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <a href="https://webwithk.github.io/steam/" class="text-sm font-semibold hover:text-purple-400 transition-colors">View Project →</a>
+                           
+                        </div>
+                    </div>
+                    <div class="project-overlay">
+                        <h3 class="text-2xl font-bold text-white mb-4">E-Commerce website</h3>
+                        <p class="text-white text-center mb-6">E-Commerce web page for art supplies store</p>
+                        <div class="flex gap-4">
+                            <a href="https://webwithk.github.io/steam/" class="btn-primary">View Design</a>
+                           
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="py-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 gradient-text">What I Offer</h2>
+                <p class="text-lg" style="color: var(--text-secondary);">Professional services tailored to your needs</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="card text-center reveal">
+                    <div class="text-5xl mb-4">💻</div>
+                    <h3 class="text-xl font-bold mb-3">Web Development</h3>
+                    <p class="mb-4" style="color: var(--text-secondary);">Custom websites built with modern technologies and best practices</p>
+                    <div class="text-2xl font-bold mb-4 gradient-text">Starting at ₹6000</div>
+                    <a href="#contact" class="btn-primary w-full text-center">Learn More</a>
+                </div>
+
+                <div class="card text-center reveal">
+                    <div class="text-5xl mb-4">🎨</div>
+                    <h3 class="text-xl font-bold mb-3">UI/UX Design</h3>
+                    <p class="mb-4" style="color: var(--text-secondary);">Beautiful, user-centered interface design that converts</p>
+                    <div class="text-2xl font-bold mb-4 gradient-text">Starting at ₹8,500</div>
+                    <a href="#contact" class="btn-primary w-full text-center">Learn More</a>
+                </div>
+
+                <div class="card text-center reveal">
+                    <div class="text-5xl mb-4">🎯</div>
+                    <h3 class="text-xl font-bold mb-3">Brand Identity</h3>
+                    <p class="mb-4" style="color: var(--text-secondary);">Complete branding and visual identity packages</p>
+                    <div class="text-2xl font-bold mb-4 gradient-text">Starting at ₹10,000</div>
+                    <a href="#contact" class="btn-primary w-full text-center">Learn More</a>
+                </div>
+
+                <div class="card text-center reveal">
+                    <div class="text-5xl mb-4">💡</div>
+                    <h3 class="text-xl font-bold mb-3">Consultation</h3>
+                    <p class="mb-4" style="color: var(--text-secondary);">Strategic digital consulting for your business</p>
+                    <div class="text-2xl font-bold mb-4 gradient-text">Contact for pricing</div>
+                    <a href="#contact" class="btn-primary w-full text-center">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <section id="contact" class="py-20 px-4 sm:px-6 lg:px-8" style="background: var(--bg-secondary);">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 gradient-text">Let's Work Together</h2>
+                <p class="text-lg" style="color: var(--text-secondary);">Have a project in mind? Let's discuss how I can help bring your vision to life.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="reveal">
+                    <form id="contactForm" class="space-y-6">
+                        <div>
+                            <label class="block mb-2 font-semibold">Name *</label>
+                            <input type="text" name="name" required class="form-input" placeholder="Your Name">
+                        </div>
+                        <div>
+                            <label class="block mb-2 font-semibold">Email *</label>
+                            <input type="email" name="email" required class="form-input" placeholder="your.email@example.com">
+                        </div>
+                        <div>
+                            <label class="block mb-2 font-semibold">Message *</label>
+                            <textarea name="message" required rows="6" class="form-input" placeholder="Tell me about your project..."></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary w-full text-center">
+                            <span id="submitText">Send Message</span>
+                            <span id="submitLoading" class="hidden">Sending...</span>
+                        </button>
+                    </form>
+                </div>
+
+                <div class="reveal space-y-6">
+                    <div class="card">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-full gradient-bg flex items-center justify-center text-white text-xl">
+                                ✉️
+                            </div>
+                            <div>
+                                <div class="font-semibold mb-1">Email</div>
+                                <a href="/cdn-cgi/l/email-protection#cda6acbfb9acbbb4acbea4a3aaa5bdaca3baacbff9f98daaa0aca4a1e3aea2a0" class="hover:text-purple-400 transition-colors" style="color: var(--text-secondary);"><span class="__cf_email__" data-cfemail="2e454f5c5a4f58574f5d474049465e4f40594f5c1a1a6e49434f4742004d4143">[email&#160;protected]</span></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-full gradient-bg flex items-center justify-center text-white text-xl">
+                                📱
+                            </div>
+                            <div>
+                                <div class="font-semibold mb-1">Phone</div>
+                                <a href="tel:+918209990176" class="hover:text-purple-400 transition-colors" style="color: var(--text-secondary);">+91 82099 90176</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-full gradient-bg flex items-center justify-center text-white text-xl">
+                                📍
+                            </div>
+                            <div>
+                                <div class="font-semibold mb-1">Location</div>
+                                <div style="color: var(--text-secondary);">India</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="font-semibold mb-4">Connect with me</div>
+                        <div class="flex gap-3">
+                            
+                          <a href="https://github.com/webwithk" class="social-link">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                </svg>
+                            </a>
+                            
+                            <a href="https://www.instagram.com/kartavya_panwar.9?igsh=MWFpYzN2MTR5bWVxNg==" class="social-link">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                                </svg>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-12 px-4 sm:px-6 lg:px-8" style="background: var(--bg-primary); border-top: 1px solid rgba(139, 92, 246, 0.2);">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <h3 class="text-2xl font-bold gradient-text mb-4">Kartavya</h3>
+                    <p style="color: var(--text-secondary);">Building digital experiences that matter</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Quick Links</h4>
+                    <div class="space-y-2">
+                        <a href="#about" class="block hover:text-purple-400 transition-colors" style="color: var(--text-secondary);">About</a>
+                        <a href="#projects" class="block hover:text-purple-400 transition-colors" style="color: var(--text-secondary);">Projects</a>
+                        <a href="#services" class="block hover:text-purple-400 transition-colors" style="color: var(--text-secondary);">Services</a>
+                        <a href="#contact" class="block hover:text-purple-400 transition-colors" style="color: var(--text-secondary);">Contact</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Newsletter</h4>
+                    <p class="mb-4" style="color: var(--text-secondary);">Subscribe for updates</p>
+                    <div class="flex gap-2">
+                        <input type="email" placeholder="Your email" class="form-input flex-1">
+                        <button class="btn-primary">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t pt-8 flex flex-col md:flex-row justify-between items-center gap-4" style="border-color: rgba(139, 92, 246, 0.2);"></div>
+                <div style="color: var(--text-secondary);">
+                    © 2024 Kartavya. All rights reserved.
+                </div>
+        </div>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        window.addEventListener(`load`, () => {
+            setTimeout(() => {
+                document.getElementById(`loader`).classList.add(`hidden`);
+            }, 1000);
+        });
+
+        window.addEventListener(`scroll`, () => {
+            const scrollProgress = document.getElementById(`scrollProgress`);
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (window.scrollY / scrollHeight) * 100;
+            scrollProgress.style.width = `${scrolled}%`;
+        });
+
+        const themeToggle = document.getElementById(`themeToggle`);
+        themeToggle.addEventListener(`click`, () => {
+            document.body.classList.toggle(`light-theme`);
+        });
+
+        const mobileMenuBtn = document.getElementById(`mobileMenuBtn`);
+        const mobileMenu = document.getElementById(`mobileMenu`);
+        mobileMenuBtn.addEventListener(`click`, () => {
+            mobileMenu.classList.toggle(`hidden`);
+        });
+
+        const mobileLinks = mobileMenu.querySelectorAll(`a`);
+        mobileLinks.forEach(link => {
+            link.addEventListener(`click`, () => {
+                mobileMenu.classList.add(`hidden`);
+            });
+        });
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: `0px 0px -100px 0px`
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add(`active`);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll(`.reveal`).forEach(el => {
+            observer.observe(el);
+        });
+
+        const animateValue = (element, start, end, duration) => {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                element.textContent = Math.floor(progress * (end - start) + start);
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        };
+
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = parseInt(entry.target.getAttribute(`data-target`));
+                    animateValue(entry.target, 0, target, 2000);
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll(`.stat-number`).forEach(stat => {
+            statsObserver.observe(stat);
+        });
+
+        const contactForm = document.getElementById(`contactForm`);
+        contactForm.addEventListener(`submit`, (e) => {
+            e.preventDefault();
+            const submitText = document.getElementById(`submitText`);
+            const submitLoading = document.getElementById(`submitLoading`);
+            
+            submitText.classList.add(`hidden`);
+            submitLoading.classList.remove(`hidden`);
+
+            setTimeout(() => {
+                submitText.classList.remove(`hidden`);
+                submitLoading.classList.add(`hidden`);
+                alert(`Thank you for your message! I'll get back to you soon.`);
+                contactForm.reset();
+            }, 2000);
+        });
+
+        for (let i = 0; i < 20; i++) {
+            const particle = document.createElement(`div`);
+            particle.className = `particle`;
+            particle.style.width = `${Math.random() * 100 + 50}px`;
+            particle.style.height = particle.style.width;
+            particle.style.left = `${Math.random() * 100}%`;
+            particle.style.top = `${Math.random() * 100}%`;
+            particle.style.background = `radial-gradient(circle, rgba(139,92,246,0.3), transparent)`;
+            particle.style.animationDelay = `${Math.random() * 20}s`;
+            document.querySelector(`.animated-bg`).appendChild(particle);
+        }
+    </script>
+    <script src="https://cdn.kuse.ai/sdk.prd.js"></script>
+</body>
+</html>
